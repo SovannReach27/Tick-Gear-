@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../src/output.css">
+</head>
+<body>
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-full max-w-sm bg-white rounded-lg shadow-lg p-6 relative">
+    <div class="flex justify-center">
+    </div>
+    <h2 class="text-center text-gray-700 text-lg font-medium mb-2">
+      
+    </h2>
+    <div class="flex justify-center items-center relative mb-6">
+      <span class="absolute inset-x-0 top-0 h-1 bg-blue-500" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></span>
+      <h3 class="text-center bg-white px-4 text-gray-500 font-medium">Log in</h3>
+    </div>
+
+    <form>
+      <div class="mb-4">
+        <label class="block text-sm text-gray-600 mb-1" for="email">Email or Phone</label>
+        <input 
+          type="text" 
+          id="email" 
+          class="w-full border border-gray-300 rounded px-3 py-2 text-gray-700 focus:outline-none focus:ring focus:ring-blue-200"
+          placeholder="Email or Phone"
+        />
+      </div>
+      <div class="mb-4 relative">
+        <label class="block text-sm text-gray-600 mb-1" for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          class="w-full border border-gray-300 rounded px-3 py-2 text-gray-700 focus:outline-none focus:ring focus:ring-blue-200"
+          placeholder="Type your password"
+        />
+        <button 
+          type="button" 
+          class="absolute top-8 right-3 flex items-center text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.53A10.967 10.967 0 0112 6c2.64 0 5.064.947 6.983 2.53M21 12.04a10.967 10.967 0 01-2.535 6.984M8.475 19.527A10.967 10.967 0 0112 18a10.967 10.967 0 013.525-.527M9 12l2.5 2.5L15 9" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex items-center justify-between mb-4">
+        <a href="#" class="text-sm text-blue-500 hover:underline">Forgot Password</a>
+      </div>
+
+      <button 
+        type="submit" 
+        class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring focus:ring-blue-300">
+        Log in
+      </button>
+
+      <div class="flex items-center mt-4">
+        <input type="checkbox" id="remember" class="mr-2 border-gray-300 rounded text-blue-500 focus:ring-blue-200" />
+        <label for="remember" class="text-sm text-gray-600">Remember me for 30 days</label>
+      </div>
+
+      <p class="text-center text-sm text-gray-600 mt-4">
+        Don’t have your account? <a href="#" class="text-blue-500 hover:underline">Sign Up</a>
+      </p>
+    </form>
+  </div>
+</div>
+</body>
+</html>
