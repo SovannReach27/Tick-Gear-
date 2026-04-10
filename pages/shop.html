@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Store - My Website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <style>
+    .mobile-menu { transition: transform 0.3s ease, opacity 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fadeIn 0.4s ease forwards; opacity: 0; }
+    .product-card:hover .product-img { transform: scale(1.05); }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col">
+
+  <!-- Sidebar Overlay -->
+  <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black/30 z-30" onclick="toggleSidebar()"></div>
+
+  <!-- Slide-in Sidebar (mobile) -->
+  <aside id="sidebar"
+    class="fixed top-0 left-0 h-full w-56 bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700 z-40 pt-16 transition-transform duration-300 -translate-x-full shadow-lg">
+    <nav class="flex flex-col mt-4">
+      <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"> Home</a>
+      <a href="./pages/StorePages.html" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">🛍️ Shop</a>
+      <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"> New Arrivals</a>
+      <a href="./pages/About.html" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"> About Us</a>
+      <div class="px-5 pt-4 border-t border-gray-100 dark:border-gray-700 mt-2">
+        <a href="./pages/Login.html" class="block text-center bg-[#c8a876] text-white px-4 py-2 rounded-full hover:bg-yellow-700 transition-colors duration-300 text-sm">Sign Up</a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 right-0 z-20 bg-white dark:bg-gray-900 shadow-sm">
+    <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <button id="sidebarToggleBtn" onclick="toggleSidebar()"
+          class="flex flex-col items-center justify-center gap-[5px] w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none">
+          <span id="bar1" class="block w-4 h-[1.5px] bg-gray-700 dark:bg-gray-200 rounded transition-all duration-300"></span>
+          <span id="bar2" class="block w-4 h-[1.5px] bg-gray-700 dark:bg-gray-200 rounded transition-all duration-300"></span>
+          <span id="bar3" class="block w-4 h-[1.5px] bg-gray-700 dark:bg-gray-200 rounded transition-all duration-300"></span>
+        </button>
+        <a href="#" class="text-2xl font-bold text-[#c8a876]">Logo</a>
+      </div>
+      <div class="hidden md:flex space-x-6">
+        <a href="#" class="nav-link text-gray-700 dark:text-gray-300 hover:text-[#c8a876] transition-colors duration-300 font-bold">Home</a>
+        <a href="./pages/StorePages.html" class="nav-link text-[#c8a876] font-bold border-b-2 border-[#c8a876]">Shop</a>
+        <a href="#" class="nav-link text-gray-700 dark:text-gray-300 hover:text-[#c8a876] transition-colors duration-300 font-bold">New Arrivals</a>
+        <a href="./pages/About.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-[#c8a876] transition-colors duration-300 font-bold">About Us</a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <!-- Dark Mode -->
+        <button id="darkModeToggle" class="text-gray-700 dark:text-gray-200 hover:text-[#c8a876] focus:outline-none transition-colors duration-300">
+          <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </button>
+        <!-- Cart -->
+        <button class="relative text-gray-700 dark:text-gray-200 hover:text-[#c8a876] transition-colors duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span id="cartCount" class="absolute -top-2 -right-2 bg-[#c8a876] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
+        </button>
+        <a href="./pages/Login.html" class="hidden md:inline-block bg-[#c8a876] text-white px-4 py-2 rounded-full hover:bg-yellow-700 transition-colors duration-300">Sign Up</a>
+        <button id="mobileMenuButton" class="md:hidden text-gray-700 dark:text-gray-200 hover:text-[#c8a876] focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+    <!-- Mobile Dropdown -->
+    <div id="mobileMenu" class="mobile-menu md:hidden bg-white dark:bg-gray-800 shadow-lg w-full transform -translate-y-full opacity-0">
+      <div class="container mx-auto px-4 py-4 space-y-4">
+        <a href="#" class="block text-gray-700 dark:text-gray-200 hover:text-[#c8a876] transition-colors">Home</a>
+        <a href="#" class="block text-gray-700 dark:text-gray-200 hover:text-[#c8a876] transition-colors">Shop</a>
+        <a href="#" class="block text-gray-700 dark:text-gray-200 hover:text-[#c8a876] transition-colors">New Arrivals</a>
+        <a href="#" class="block text-gray-700 dark:text-gray-200 hover:text-[#c8a876] transition-colors">About Us</a>
+        <a href="#" class="inline-block bg-[#c8a876] text-white px-4 py-2 rounded-full hover:bg-yellow-700 transition-colors">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE BODY -->
+  <div class="flex pt-20 container mx-auto px-4 py-8 gap-8">
+
+    <!-- LEFT: Category Sidebar -->
+    <aside class="hidden md:block w-56 flex-shrink-0">
+      <h2 class="text-2xl font-extrabold text-gray-800 dark:text-white mb-6">ALL PRODUCTS</h2>
+      <ul class="space-y-1" id="categoryList">
+        <li>
+          <button onclick="selectCategory(this, 'All')"
+            class="category-btn w-full text-left px-5 py-3 rounded-full bg-[#c8a876] text-white font-medium text-sm transition-all duration-200">
+            All Products
+          </button>
+        </li>
+        <li><button onclick="selectCategory(this, 'Tops')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Tops</button></li>
+        <li><button onclick="selectCategory(this, 'Bottoms')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Bottoms</button></li>
+        <li><button onclick="selectCategory(this, 'Dresses')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Dresses</button></li>
+        <li><button onclick="selectCategory(this, 'Accessories')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Accessories</button></li>
+        <li><button onclick="selectCategory(this, 'Shoes')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Shoes</button></li>
+        <li><button onclick="selectCategory(this, 'Bags')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Bags</button></li>
+      </ul>
+
+      <div class="mt-10">
+        <h3 class="text-xl font-extrabold text-gray-800 dark:text-white mb-3">CONTACT US</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400">How can I contact for business inquiries?</p>
+        <a href="#" class="inline-block mt-3 text-sm text-[#c8a876] hover:underline font-medium">Send a message →</a>
+      </div>
+    </aside>
+
+    <!-- RIGHT: Search + Product Grid -->
+    <div class="flex-1 min-w-0">
+      <!-- Search Bar -->
+      <div class="relative mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/>
+        </svg>
+        <input id="searchInput" type="text" placeholder="Search..."
+          class="w-full pl-12 pr-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-xl border border-transparent focus:outline-none focus:border-[#c8a876] transition-colors text-sm"
+          oninput="filterProducts()" />
+      </div>
+
+      <!-- Mobile Category Scroll -->
+      <div class="flex md:hidden gap-2 overflow-x-auto pb-3 mb-6 scrollbar-hide">
+        <button onclick="selectCategory(this,'All')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-[#c8a876] text-white text-xs font-medium">All</button>
+        <button onclick="selectCategory(this,'Tops')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Tops</button>
+        <button onclick="selectCategory(this,'Bottoms')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Bottoms</button>
+        <button onclick="selectCategory(this,'Dresses')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Dresses</button>
+        <button onclick="selectCategory(this,'Accessories')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Accessories</button>
+        <button onclick="selectCategory(this,'Shoes')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Shoes</button>
+        <button onclick="selectCategory(this,'Bags')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Bags</button>
+      </div>
+
+      <!-- Product Grid -->
+      <div id="productGrid" class="grid grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Products injected by JS -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="hidden text-center py-20">
+        <p class="text-gray-400 dark:text-gray-500 text-lg">No products found.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Products Data ──
+    const products = [
+      { id:1, name:'AULA F2058 USB Mechanical Gaming Keyboard', price:30.00, category:'Tops', img: '../photo/key1-removebg-preview.png' },
+      { id:2, name:'Striped Linen Shirt', price:109.99, category:'Tops', img:'https://www.gamingstorekh.com/Content/Upload/Item/82004819-a159-4846-82cc-3aa2ee7dfd3c.png' },
+      { id:3, name:'Logitech G G515 LIGHTSPEED TKL Wireless Gaming Keyboard - BLACK', price:130.00, category:'Tops', img:'https://www.gamingstorekh.com/Content/Upload/Item/5354305d-52f2-4db8-9125-710964aeb956.png' },
+      { id:4, name:'Fantech ATOM 96 MK890V2 RGB RED Switch Mechanical Gaming Keyboard SKY Blue', price:35.99, category:'Tops', img:'https://www.gamingstorekh.com/Content/Upload/Item/59cbc4ca-a704-4d97-99e4-e2042f1d1aaa.png' },
+      { id:2, name:'Striped Linen Shirt', price:109.99, category:'Tops', img:'https://www.gamingstorekh.com/Content/Upload/Item/82004819-a159-4846-82cc-3aa2ee7dfd3c.png' },
+      { id:3, name:'Slim Fit Chinos', price:44.99, category:'Bottoms', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Chinos' },
+      { id:4, name:'Denim Jeans', price:59.99, category:'Bottoms', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Jeans' },
+      { id:5, name:'Floral Midi Dress', price:64.99, category:'Dresses', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Midi+Dress' },
+      { id:6, name:'Evening Gown', price:89.99, category:'Dresses', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Evening+Gown' },
+      { id:7, name:'Gold Hoop Earrings', price:24.99, category:'Accessories', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Earrings' },
+      { id:8, name:'Leather Belt', price:29.99, category:'Accessories', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Belt' },
+      { id:9, name:'White Sneakers', price:74.99, category:'Shoes', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Sneakers' },
+      { id:10, name:'Ankle Boots', price:99.99, category:'Shoes', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Boots' },
+      { id:11, name:'Canvas Tote Bag', price:22.99, category:'Bags', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Tote+Bag' },
+      { id:12, name:'Leather Crossbody', price:79.99, category:'Bags', img:'https://placehold.co/300x300/f5f0eb/c8a876?text=Crossbody' },
+    ];
+
+    let currentCategory = 'All';
+    let cartCount = 0;
+
+    function renderProducts() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const grid = document.getElementById('productGrid');
+      const empty = document.getElementById('emptyState');
+      const filtered = products.filter(p => {
+        const matchCat = currentCategory === 'All' || p.category === currentCategory;
+        const matchSearch = p.name.toLowerCase().includes(search);
+        return matchCat && matchSearch;
+      });
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      grid.innerHTML = filtered.map(p => `
+        <div class="product-card bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden group cursor-pointer transition-shadow duration-300 hover:shadow-md">
+          <div class="overflow-hidden bg-gray-50 dark:bg-gray-700 aspect-square flex items-center justify-center p-4">
+            <img src="${p.img}" alt="${p.name}" class="product-img w-full h-full object-contain transition-transform duration-300" />
+          </div>
+          <div class="p-4">
+            <h3 class="text-sm font-medium text-gray-800 dark:text-white leading-snug mb-1">${p.name}</h3>
+            <p class="text-[#c8a876] font-bold text-sm mb-3">$${p.price.toFixed(2)}</p>
+            <button onclick="addToCart()" class="w-full bg-[#c8a876] hover:bg-yellow-700 text-white text-xs font-medium py-2 rounded-full transition-colors duration-300">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectCategory(btn, cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.category-btn').forEach(b => {
+        b.classList.remove('bg-[#c8a876]', 'text-white');
+        b.classList.add('text-gray-700', 'dark:text-gray-300');
+      });
+      btn.classList.add('bg-[#c8a876]', 'text-white');
+      btn.classList.remove('text-gray-700', 'dark:text-gray-300');
+      renderProducts();
+    }
+
+    function filterProducts() { renderProducts(); }
+
+    function addToCart() {
+      cartCount++;
+      document.getElementById('cartCount').textContent = cartCount;
+    }
+
+    renderProducts();
+
+    // ── Dark Mode ──
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon = document.getElementById('sunIcon');
+    let isDarkMode = false;
+    function toggleDarkMode() {
+      isDarkMode = !isDarkMode;
+      document.documentElement.classList.toggle('dark', isDarkMode);
+      moonIcon.classList.toggle('hidden', isDarkMode);
+      sunIcon.classList.toggle('hidden', !isDarkMode);
+    }
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) toggleDarkMode();
+
+    // ── Sidebar ──
+    let sidebarOpen = false;
+    function toggleSidebar() {
+      sidebarOpen = !sidebarOpen;
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const bar1 = document.getElementById('bar1');
+      const bar2 = document.getElementById('bar2');
+      const bar3 = document.getElementById('bar3');
+      sidebar.classList.toggle('-translate-x-full', !sidebarOpen);
+      overlay.classList.toggle('hidden', !sidebarOpen);
+      bar1.style.transform = sidebarOpen ? 'translateY(6.5px) rotate(45deg)' : '';
+      bar2.style.opacity = sidebarOpen ? '0' : '1';
+      bar3.style.transform = sidebarOpen ? 'translateY(-6.5px) rotate(-45deg)' : '';
+    }
+
+    // ── Mobile Dropdown ──
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let isMobileMenuOpen = false;
+    mobileMenuButton.addEventListener('click', () => {
+      isMobileMenuOpen = !isMobileMenuOpen;
+      if (isMobileMenuOpen) {
+        mobileMenu.classList.remove('-translate-y-full', 'opacity-0');
+        mobileMenu.classList.add('translate-y-0', 'opacity-100');
+      } else {
+        mobileMenu.classList.remove('translate-y-0', 'opacity-100');
+        mobileMenu.classList.add('-translate-y-full', 'opacity-0');
+      }
+    });
+
+    // ── Nav fade-in ──
+    document.querySelectorAll('.nav-link').forEach((link, i) => {
+      link.style.animationDelay = `${i * 0.1}s`;
+    });
+  </script>
+</body>
+</html>
