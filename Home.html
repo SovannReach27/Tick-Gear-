@@ -45,8 +45,7 @@
   <!-- NAVBAR -->
   <header class="bg-gray-100 dark:bg-gray-900 shadow-lg sticky top-0 z-50 transition-colors duration-300">
     <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-
-      <img src="./photo/ticklogo.png"width="150" height="400" alt="">
+       <a href="#" class="text-2xl font-bold text-green-600 dark:text-green-400">Logo</a>
 
       <div class="hidden md:flex space-x-6">
         <a href="#" class="nav-link text-gray-700 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400 transition-colors duration-300 font-bold">Home</a>
@@ -65,7 +64,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
           </svg>
         </button>
-        <a href="./pages/Login.html" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full transition-colors duration-300">Sign Up</a>
+        <a href="./pages/Create.html" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full transition-colors duration-300">Sign Up</a>
       </div>
 
       <button id="mobileMenuButton" class="md:hidden text-gray-700 dark:text-gray-200 hover:text-green-600 focus:outline-none transition-colors duration-300">
@@ -506,7 +505,7 @@
 
     mobileMenuButton.addEventListener('click', toggleMobileMenu);
 
-    // ── Nav fade-in ──
+    // ── Nav fade-in ──`
     document.querySelectorAll('.nav-link').forEach((link, index) => {
       link.classList.add('animate-fade-in');
       link.style.animationDelay = `${index * 0.1}s`;
