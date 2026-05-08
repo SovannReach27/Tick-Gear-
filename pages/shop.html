@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Store - My Website</title>
+  <title>Store - TickGear</title>
   <link rel="icon" href="../photo/iconLogo.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -11,12 +11,31 @@
   </script>
   <style>
     .mobile-menu { transition: transform 0.3s ease, opacity 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-    .animate-fade-in { animation: fadeIn 0.4s ease forwards; opacity: 0; }
+
+    /* ── Nav link underline hover ── */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: #22c55e;
+      transition: width 0.25s ease;
+      border-radius: 9999px;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+
+    /* ── Product card ── */
     .product-card:hover .product-img { transform: scale(1.05); }
+
+    /* ── Footer blobs ── */
+    @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+    @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(14px)} }
+    @keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .anim-f1 { animation: float1 6s ease-in-out infinite; }
+    .anim-f2 { animation: float2 7s ease-in-out infinite; }
+    .anim-f3 { animation: float3 5s ease-in-out infinite; }
   </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col">
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col transition-colors duration-300">
 
   <!-- Sidebar Overlay -->
   <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black/30 z-30" onclick="toggleSidebar()"></div>
@@ -25,19 +44,21 @@
   <aside id="sidebar"
     class="fixed top-0 left-0 h-full w-56 bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700 z-40 pt-16 transition-transform duration-300 -translate-x-full shadow-lg">
     <nav class="flex flex-col mt-4">
-      <a href="../Home.html" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Home</a>
-      <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Shop</a>
-      <a href="./ContactUs.html" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Contact Us</a>
-      <a href="./pages/About.html" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">About Us</a>
+      <a href="../Home.html" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-green-500 transition-colors">Home</a>
+      <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-green-500 font-bold">Shop</a>
+      <a href="./ContactUs.html" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-green-500 transition-colors">Contact Us</a>
+      <a href="./About.html" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-green-500 transition-colors">About Us</a>
       <div class="px-5 pt-4 border-t border-gray-100 dark:border-gray-700 mt-2">
-        <a href="./pages/Login.html" class="block text-center bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors duration-300 text-sm">Sign Up</a>
+        <a href="./Login.html" class="block text-center bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors text-sm">Sign Up</a>
       </div>
     </nav>
   </aside>
 
-  <!-- NAVBAR -->
-  <header class="fixed top-0 left-0 right-0 z-20 bg-white dark:bg-gray-900 shadow-sm">
+  <!-- ══════════ NAVBAR ══════════ -->
+  <header class="fixed top-0 left-0 right-0 z-20 bg-white dark:bg-gray-900 shadow-sm transition-colors duration-300">
     <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+
+      <!-- Left: hamburger + logo -->
       <div class="flex items-center gap-3">
         <button id="sidebarToggleBtn" onclick="toggleSidebar()"
           class="flex flex-col items-center justify-center gap-[5px] w-9 h-9 rounded-lg border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none">
@@ -45,70 +66,79 @@
           <span id="bar2" class="block w-4 h-[1.5px] bg-gray-700 dark:bg-gray-200 rounded transition-all duration-300"></span>
           <span id="bar3" class="block w-4 h-[1.5px] bg-gray-700 dark:bg-gray-200 rounded transition-all duration-300"></span>
         </button>
-        <a href="#" class="text-2xl font-bold text-green-500">Logo</a>
+        <!-- TickGear logo text matching homepage style -->
+        <a href="#" class="text-2xl font-extrabold tracking-tight">
+          <span class="text-slate-900 dark:text-white">TICK</span><span class="text-green-500">GEAR</span>
+        </a>
       </div>
-      <div class="hidden md:flex space-x-6">
-        <a href="../Home.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-green-500 transition-colors duration-300 font-bold">Home</a>
-        <a href="#" class="nav-link text-green-500 font-bold border-b-2 border-green-500">Shop</a>
-        <a href="./ContactUs.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-green-500 transition-colors duration-300 font-bold">Contact Us</a>
-        <a href="./About.html" class="nav-link text-gray-700 dark:text-gray-300 hover:text-green-500 transition-colors duration-300 font-bold">About Us</a>
+
+      <!-- Center: nav links (desktop) -->
+      <div class="hidden md:flex space-x-8">
+        <a href="../Home.html" class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">Home</a>
+        <a href="#" class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">Shop</a>
+        <a href="./ContactUs.html" class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">Contact Us</a>
+        <a href="./About.html" class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">About Us</a>
       </div>
+
+      <!-- Right: dark mode + cart + sign up -->
       <div class="flex items-center space-x-4">
-        <!-- Dark Mode -->
-        <button id="darkModeToggle" class="text-gray-700 dark:text-gray-200 hover:text-green-500 focus:outline-none transition-colors duration-300">
+
+        <!-- ✅ DARK MODE — bare sun/moon icon (same as homepage) -->
+        <button id="darkModeToggle" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-400 focus:outline-none transition-colors duration-300">
+          <!-- Moon: shown in light mode -->
           <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
           </svg>
+          <!-- Sun: shown in dark mode -->
           <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
           </svg>
         </button>
+
         <!-- Cart -->
-        <button class="relative text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors duration-300">
+        <button class="relative text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
           </svg>
           <span id="cartCount" class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
         </button>
-        <a href="./Create.html" class="hidden md:inline-block bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors duration-300">Sign Up</a>
-        <button id="mobileMenuButton" class="md:hidden text-gray-700 dark:text-gray-200 hover:text-green-500 focus:outline-none">
+
+        <a href="./Create.html" class="hidden md:inline-block bg-green-500 text-white px-5 py-2 rounded-full hover:bg-green-600 transition-colors duration-300 font-semibold text-sm shadow-md shadow-green-500/20">Sign Up</a>
+
+        <!-- Mobile hamburger menu toggle -->
+        <button id="mobileMenuButton" class="md:hidden text-gray-700 dark:text-gray-200 hover:text-green-500 focus:outline-none transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
         </button>
       </div>
     </nav>
+
     <!-- Mobile Dropdown -->
     <div id="mobileMenu" class="mobile-menu md:hidden bg-white dark:bg-gray-800 shadow-lg w-full transform -translate-y-full opacity-0">
       <div class="container mx-auto px-4 py-4 space-y-4">
-        <a href="../Home.html" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">Home</a>
-        <a href="#" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">Shop</a>
-        <a href="./ContactUs.html" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">Contact Us</a>
-        <a href="./About.html" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">About Us</a>
-        <a href="./Login.html" class="inline-block bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors">Sign Up</a>
+        <a href="../Home.html" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors font-medium">Home</a>
+        <a href="#" class="block text-green-500 font-bold">Shop</a>
+        <a href="./ContactUs.html" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors font-medium">Contact Us</a>
+        <a href="./About.html" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors font-medium">About Us</a>
+        <a href="./Login.html" class="inline-block bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors font-semibold text-sm">Sign Up</a>
       </div>
     </div>
   </header>
 
-  <!-- PAGE BODY -->
+  <!-- ══════════ PAGE BODY ══════════ -->
   <div class="flex pt-20 container mx-auto px-4 py-8 gap-8">
 
     <!-- LEFT: Category Sidebar -->
     <aside class="hidden md:block w-56 flex-shrink-0">
       <h2 class="text-2xl font-extrabold text-gray-800 dark:text-white mb-6">ALL PRODUCTS</h2>
       <ul class="space-y-1" id="categoryList">
-        <li>
-          <button onclick="selectCategory(this, 'All')"
-            class="category-btn w-full text-left px-5 py-3 rounded-full bg-green-500 text-white font-medium text-sm transition-all duration-200">
-            All Products
-          </button>
-        </li>
-        <li><button onclick="selectCategory(this, 'Keyboard')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Keyboard</button></li>
-        <li><button onclick="selectCategory(this, 'Mice')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Mice</button></li>
-        <li><button onclick="selectCategory(this, 'Microphone')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Microphone</button></li>
-        <li><button onclick="selectCategory(this, 'Headset')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Headset</button></li>
+        <li><button onclick="selectCategory(this,'All')" class="category-btn w-full text-left px-5 py-3 rounded-full bg-green-500 text-white font-medium text-sm transition-all duration-200">All Products</button></li>
+        <li><button onclick="selectCategory(this,'Keyboard')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Keyboard</button></li>
+        <li><button onclick="selectCategory(this,'Mice')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Mice</button></li>
+        <li><button onclick="selectCategory(this,'Microphone')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Microphone</button></li>
+        <li><button onclick="selectCategory(this,'Headset')" class="category-btn w-full text-left px-5 py-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium text-sm transition-all duration-200">Headset</button></li>
       </ul>
-
       <div class="mt-10">
         <h3 class="text-xl font-extrabold text-gray-800 dark:text-white mb-3">CONTACT US</h3>
         <p class="text-sm text-gray-500 dark:text-gray-400">How can I contact for business inquiries?</p>
@@ -125,11 +155,11 @@
         </svg>
         <input id="searchInput" type="text" placeholder="Search..."
           class="w-full pl-12 pr-4 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-xl border border-transparent focus:outline-none focus:border-green-500 transition-colors text-sm"
-          oninput="filterProducts()" />
+          oninput="filterProducts()"/>
       </div>
 
       <!-- Mobile Category Scroll -->
-      <div class="flex md:hidden gap-2 overflow-x-auto pb-3 mb-6 scrollbar-hide">
+      <div class="flex md:hidden gap-2 overflow-x-auto pb-3 mb-6">
         <button onclick="selectCategory(this,'All')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-green-500 text-white text-xs font-medium">All</button>
         <button onclick="selectCategory(this,'Keyboard')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Keyboard</button>
         <button onclick="selectCategory(this,'Mice')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Mice</button>
@@ -139,15 +169,15 @@
 
       <!-- Product Grid -->
       <div id="productGrid" class="grid grid-cols-2 lg:grid-cols-3 gap-5"></div>
-
-      <!-- Empty State -->
       <div id="emptyState" class="hidden text-center py-20">
         <p class="text-gray-400 dark:text-gray-500 text-lg">No products found.</p>
       </div>
     </div>
   </div>
 
+
   <script>
+    // ════════ PRODUCTS DATA ════════
     const products = [
       { id:1,  name:'AULA F65 - Wireless & Wired', price:59.99, category:'Keyboard', img:'https://aulagear.com/cdn/shop/files/IMG_8718.png?v=1734921204&width=823' },
       { id:2,  name:'Logitech Signature Slim Solar', price:99.99, category:'Keyboard', img:'https://resource.logitech.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/logitech/en/products/keyboards/solar-k980-keyboard-for-mac/off-white/gallery-images/signature-slim-solar+for-mac-wireless-keyboard-k980-off-white-typing-view-6.png' },
@@ -157,7 +187,6 @@
       { id:6,  name:'AULA F-NB98', price:100.99, category:'Keyboard', img:'https://aulagear.com/cdn/shop/files/AULA_F-NB98_RGB_01.png?v=1763029624&width=713' },
       { id:7,  name:'AULA F75 Wired Version', price:99.00, category:'Keyboard', img:'https://aulagear.com/cdn/shop/files/EPOMAKER_X_AULA_F75_ULTRA_01.png?v=1776675970&width=360' },
       { id:8,  name:'Attack Shark X98 Series', price:45.99, category:'Keyboard', img:'https://aulagear.com/cdn/shop/files/AULA_F75_Wired_Version_Black_01.png?v=1752228175&width=713' },
-
       { id:9,  name:'Razer Viper V4 Pro - White', price:154.99, category:'Mice', img:'https://assets3.razerzone.com/V_ROn1uwZTtCNoOLjBRGWrYqS48=/300x300/https%3A%2F%2Fmedias-p1.phoenix.razer.com%2Fsys-master-phoenix-images-container%2Fh57%2Fh60%2F10039373201438%2Fviper-v4-pro-white-2-500x500.png' },
       { id:10, name:'Razer Naga V2 Pro', price:179.99, category:'Mice', img:'https://assets3.razerzone.com/y265A8on-spu30uzfYMFCzGGBpU=/300x300/https%3A%2F%2Fmedias-p1.phoenix.razer.com%2Fsys-master-phoenix-images-container%2Fhb2%2Fhb9%2F9529652379678%2Fnaga-v2-pro-2-500x500.png' },
       { id:11, name:'Razer Naga Left-Handed Edition', price:99.99, category:'Mice', img:'https://assets3.razerzone.com/yVd7fP8Z4ibH0AxLPvpk16aelJA=/300x300/https%3A%2F%2Fmedias-p1.phoenix.razer.com%2Fsys-master-phoenix-images-container%2Fh09%2Fhba%2F9529652346910%2Fnaga-left-handed-2-500x500.png' },
@@ -166,22 +195,19 @@
       { id:14, name:'AULA SC900 Gaming Mouse', price:29.99, category:'Mice', img:'https://aulagear.com/cdn/shop/files/AULA_SC590PRO_6.png?v=1768813585&width=713' },
       { id:15, name:'AULA SC620 Gaming Mouse', price:44.99, category:'Mice', img:'https://www.aulastar.com/uploads/allimg/20260303/1-26030311563b50.png' },
       { id:16, name:'Logitech M720 Triathlon', price:49.99, category:'Mice', img:'https://resource.logitech.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/logitech/en/products/mice/m720/gallery/m720-gallery-2a.png' },
-
       { id:17, name:'Compass Microphone Boom Arm', price:129.99, category:'Microphone', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/streaming-gear/compass-boom-microphone-arm/gallery/2025/compass-g-3qtr-angle-gallery-4.png' },
       { id:18, name:'YETI - Game Streaming Kit', price:149.99, category:'Microphone', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/microphones/yeti-game-streaming-kit/2025/gallery/yeti-game-streaming-kit-front-angle-gallery-4.png' },
       { id:19, name:'YETI ORB', price:49.99, category:'Microphone', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/plp-microphones/pdp-yeti-orb-gaming-microphone/2025/gallery/yeti-orb-3qtr-front-right-angle-white-gallery-4.png' },
       { id:20, name:'YETI NANO USB MICROPHONE', price:99.99, category:'Microphone', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/streaming-gear/yeti-nano-usb-microphone/gallery/2025/yeti-nano-3qtr-front-left-angle-black-gallery-3.png' },
       { id:21, name:'Yeticaster GX', price:269.99, category:'Microphone', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/yeticaster-gx/2025/gallery/yeticaster-gx-3qtr-gallery-4.png' },
       { id:22, name:'YETI GX', price:149.99, category:'Microphone', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/plp-microphones/pdp-yeti-gx-gaming-microphone/2025/gallery/yeti-gx-3qtr-front-angle-white-gallery-4.png' },
-
       { id:23, name:'ASTRO A50 (Gen 5)', price:224.99, category:'Headset', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/a50-gen-5/astro-a50-x-gen-5-white-gallery-2.png' },
       { id:24, name:'PRO X 2', price:20.99, category:'Headset', img:'https://resource.logitechg.com/w_544,h_466,ar_7:6,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/pro-x-2-lightspeed/gallery/gallery-1-pro-x-2-lightspeed-gaming-headset-black.png' },
       { id:25, name:'G733', price:114.99, category:'Headset', img:'https://resource.logitechg.com/w_544,h_466,ar_7:6,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/g733/gallery/g733-lilac-gallery-1.png' },
       { id:26, name:'ASTRO A20', price:99.99, category:'Headset', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/astro/en/products/a20-wireless-gen-2-headset/a20-gallery-ps4-02.png' },
-      { id:27, name:'g342', price:37.49, category:'Headset', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/g432/2025/g432-3qtr-back-right-angle-gallery-3.png' },
-      { id:28, name:'Logitech G G435', price:199.99, category:'Headset', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/g435/2025/gallery/g435-3qtr-back-left-angle-black-gallery-4.png  ' },
+      { id:27, name:'G342', price:37.49, category:'Headset', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/g432/2025/g432-3qtr-back-right-angle-gallery-3.png' },
+      { id:28, name:'Logitech G G435', price:199.99, category:'Headset', img:'https://resource.logitechg.com/w_416,h_312,ar_4:3,c_pad,q_auto,f_auto,dpr_2.0/d_transparent.gif/content/dam/gaming/en/products/g435/2025/gallery/g435-3qtr-back-left-angle-black-gallery-4.png' },
     ];
-
 
     let currentCategory = 'All';
     let cartCount = 0;
@@ -195,23 +221,17 @@
         const matchSearch = p.name.toLowerCase().includes(search);
         return matchCat && matchSearch;
       });
-      if (filtered.length === 0) {
-        grid.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-      }
+      if (filtered.length === 0) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
       empty.classList.add('hidden');
       grid.innerHTML = filtered.map(p => `
         <div class="product-card bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden group cursor-pointer transition-shadow duration-300 hover:shadow-md">
           <div class="overflow-hidden bg-gray-50 dark:bg-gray-700 aspect-square flex items-center justify-center p-4">
-            <img src="${p.img}" alt="${p.name}" class="product-img w-full h-full object-contain transition-transform duration-300" />
+            <img src="${p.img}" alt="${p.name}" class="product-img w-full h-full object-contain transition-transform duration-300"/>
           </div>
           <div class="p-4">
             <h3 class="text-sm font-medium text-gray-800 dark:text-white leading-snug mb-1">${p.name}</h3>
             <p class="text-green-500 font-bold text-sm mb-3">$${p.price.toFixed(2)}</p>
-            <button onclick="addToCart()" class="w-full bg-green-500 hover:bg-green-600 text-white text-xs font-medium py-2 rounded-full transition-colors duration-300">
-              Add to Cart
-            </button>
+            <button onclick="addToCart()" class="w-full bg-green-500 hover:bg-green-600 text-white text-xs font-medium py-2 rounded-full transition-colors duration-300">Add to Cart</button>
           </div>
         </div>
       `).join('');
@@ -220,16 +240,15 @@
     function selectCategory(btn, cat) {
       currentCategory = cat;
       document.querySelectorAll('.category-btn').forEach(b => {
-        b.classList.remove('bg-green-500', 'text-white');
-        b.classList.add('text-gray-700', 'dark:text-gray-300');
+        b.classList.remove('bg-green-500','text-white');
+        b.classList.add('text-gray-700','dark:text-gray-300');
       });
-      btn.classList.add('bg-green-500', 'text-white');
-      btn.classList.remove('text-gray-700', 'dark:text-gray-300');
+      btn.classList.add('bg-green-500','text-white');
+      btn.classList.remove('text-gray-700','dark:text-gray-300');
       renderProducts();
     }
 
     function filterProducts() { renderProducts(); }
-
     function addToCart() {
       cartCount++;
       document.getElementById('cartCount').textContent = cartCount;
@@ -237,21 +256,33 @@
 
     renderProducts();
 
-    // Dark Mode
+    // ════════ DARK MODE — same logic as homepage (localStorage) ════════
+    const html = document.documentElement;
     const darkModeToggle = document.getElementById('darkModeToggle');
     const moonIcon = document.getElementById('moonIcon');
     const sunIcon = document.getElementById('sunIcon');
-    let isDarkMode = false;
-    function toggleDarkMode() {
-      isDarkMode = !isDarkMode;
-      document.documentElement.classList.toggle('dark', isDarkMode);
-      moonIcon.classList.toggle('hidden', isDarkMode);
-      sunIcon.classList.toggle('hidden', !isDarkMode);
-    }
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) toggleDarkMode();
 
-    // Sidebar
+    function syncIcons() {
+      const isDark = html.classList.contains('dark');
+      sunIcon.classList.toggle('hidden', !isDark);
+      moonIcon.classList.toggle('hidden', isDark);
+    }
+
+    function applyTheme(isDark) {
+      if (isDark) { html.classList.add('dark'); localStorage.setItem('theme','dark'); }
+      else { html.classList.remove('dark'); localStorage.setItem('theme','light'); }
+      syncIcons();
+    }
+
+    // Load saved or system preference
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      applyTheme(true);
+    } else { syncIcons(); }
+
+    darkModeToggle.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+    // ════════ SIDEBAR ════════
     let sidebarOpen = false;
     function toggleSidebar() {
       sidebarOpen = !sidebarOpen;
@@ -267,41 +298,40 @@
       bar3.style.transform = sidebarOpen ? 'translateY(-6.5px) rotate(-45deg)' : '';
     }
 
-    // Mobile Dropdown
+    // ════════ MOBILE MENU ════════
     const mobileMenuButton = document.getElementById('mobileMenuButton');
     const mobileMenu = document.getElementById('mobileMenu');
     let isMobileMenuOpen = false;
     mobileMenuButton.addEventListener('click', () => {
       isMobileMenuOpen = !isMobileMenuOpen;
       if (isMobileMenuOpen) {
-        mobileMenu.classList.remove('-translate-y-full', 'opacity-0');
-        mobileMenu.classList.add('translate-y-0', 'opacity-100');
+        mobileMenu.classList.remove('-translate-y-full','opacity-0');
+        mobileMenu.classList.add('translate-y-0','opacity-100');
       } else {
-        mobileMenu.classList.remove('translate-y-0', 'opacity-100');
-        mobileMenu.classList.add('-translate-y-full', 'opacity-0');
+        mobileMenu.classList.remove('translate-y-0','opacity-100');
+        mobileMenu.classList.add('-translate-y-full','opacity-0');
       }
     });
-
-    document.querySelectorAll('.nav-link').forEach((link, i) => {
-      link.style.animationDelay = `${i * 0.1}s`;
-    });
   </script>
-  <footer class="relative bg-gray-900 dark:bg-gray-950 text-white overflow-hidden transition-colors duration-300">
-    <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20">
-      <div class="absolute top-20 left-10 w-32 h-32 bg-green-500 rounded-full filter blur-3xl animate-float1"></div>
-      <div class="absolute top-40 right-20 w-40 h-40 bg-emerald-500 rounded-full filter blur-3xl animate-float2"></div>
-      <div class="absolute bottom-10 left-1/2 w-48 h-48 bg-teal-500 rounded-full filter blur-3xl animate-float3"></div>
+  <footer class="relative bg-gray-900 dark:bg-gray-950 text-white overflow-hidden transition-colors duration-300 mt-auto">
+    <div class="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
+      <div class="absolute top-20 left-10 w-32 h-32 bg-green-500 rounded-full blur-3xl anim-f1"></div>
+      <div class="absolute top-40 right-20 w-40 h-40 bg-emerald-500 rounded-full blur-3xl anim-f2"></div>
+      <div class="absolute bottom-10 left-1/2 w-48 h-48 bg-teal-500 rounded-full blur-3xl anim-f3"></div>
     </div>
 
     <div class="relative max-w-7xl mx-auto px-6 py-16 sm:py-20 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
-        <div class="group">
-          <img src="./photo/ticklogo.png"ml-4 alt="">
-          
-          <div class="flex space-x-4">
+        <!-- ✅ TICKGEAR logo in footer -->
+        <div>
+          <p class="text-2xl font-extrabold tracking-tight mb-4">
+            TICK<span class="text-green-400">GEAR</span>
+          </p>
+          <p class="text-gray-400 text-sm mb-5 leading-relaxed">Your one-stop shop for premium gaming peripherals.</p>
+          <div class="flex space-x-3">
             <a href="https://www.instagram.com/triedforthis" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-green-600 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor" class="w-5 h-5"><path d="M320.3 205C256.8 204.8 205.2 256.2 205 319.7C204.8 383.2 256.2 434.8 319.7 435C383.2 435.2 434.8 383.8 435 320.3C435.2 256.8 383.8 205.2 320.3 205zM319.7 245.4C360.9 245.2 394.4 278.5 394.6 319.7C394.8 360.9 361.5 394.4 320.3 394.6C279.1 394.8 245.6 361.5 245.4 320.3C245.2 279.1 278.5 245.6 319.7 245.4zM413.1 200.3C413.1 185.5 425.1 173.5 439.9 173.5C454.7 173.5 466.7 185.5 466.7 200.3C466.7 215.1 454.7 227.1 439.9 227.1C425.1 227.1 413.1 215.1 413.1 200.3zM542.8 227.5C541.1 191.6 532.9 159.8 506.6 133.6C480.4 107.4 448.6 99.2 412.7 97.4C375.7 95.3 264.8 95.3 227.8 97.4C192 99.1 160.2 107.3 133.9 133.5C107.6 159.7 99.5 191.5 97.7 227.4C95.6 264.4 95.6 375.3 97.7 412.3C99.4 448.2 107.6 480 133.9 506.2C160.2 532.4 191.9 540.6 227.8 542.4C264.8 544.5 375.7 544.5 412.7 542.4C448.6 540.7 480.4 532.5 506.6 506.2C532.8 480 541 448.2 542.8 412.3C544.9 375.3 544.9 264.5 542.8 227.5zM495 452C487.2 471.6 472.1 486.7 452.4 494.6C422.9 506.3 352.9 503.6 320.3 503.6C287.7 503.6 217.6 506.2 188.2 494.6C168.6 486.8 153.5 471.7 145.6 452C133.9 422.5 136.6 352.5 136.6 319.9C136.6 287.3 134 217.2 145.6 187.8C153.4 168.2 168.5 153.1 188.2 145.2C217.7 133.5 287.7 136.2 320.3 136.2C352.9 136.2 423 133.6 452.4 145.2C472 153 487.1 168.1 495 187.8C506.7 217.3 504 287.3 504 319.9C504 352.5 506.7 422.6 495 452z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </a>
             <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-green-600 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
@@ -312,60 +342,62 @@
           </div>
         </div>
 
+        <!-- Quick Links -->
         <div>
-          <h3 class="text-lg font-semibold mb-6 text-white">Quick Links</h3>
+          <h3 class="text-lg font-semibold mb-6">Quick Links</h3>
           <ul class="space-y-3">
-            <li><a href="#" class="text-gray-300 hover:text-green-400 hover:pl-2 transition-all duration-300 flex items-center">Home</a></li>
-            <li><a href="./pages/StorePages.html" class="text-gray-300 hover:text-green-400 hover:pl-2 transition-all duration-300 flex items-center">Store</a></li>
-            <li><a href="#" class="text-gray-300 hover:text-green-400 hover:pl-2 transition-all duration-300 flex items-center">New Arrivals</a></li>
-            <li><a href="./pages/About.html" class="text-gray-300 hover:text-green-400 hover:pl-2 transition-all duration-300 flex items-center">About Us</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 hover:pl-2 transition-all duration-200 text-sm block">Home</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 hover:pl-2 transition-all duration-200 text-sm block">Store</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-green-400 hover:pl-2 transition-all duration-200 text-sm block">Contact Us</a></li>
+            <li><a href="./About.html" class="text-gray-300 hover:text-green-400 hover:pl-2 transition-all duration-200 text-sm block">About Us</a></li>
           </ul>
         </div>
 
+        <!-- Get in Touch -->
         <div>
-          <h3 class="text-lg font-semibold mb-6 text-white">Get in Touch</h3>
+          <h3 class="text-lg font-semibold mb-6">Get in Touch</h3>
           <ul class="space-y-4">
-            <li class="flex items-start">
-              <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center animate-pulse flex-shrink-0 mt-1">
+            <li class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
               </div>
-              <div class="ml-3">
-                <p class="text-sm text-gray-300">Email</p>
-                <a href="mailto:manueljosedala@hotmail.com" class="text-white hover:text-green-400 transition">reachsovann063.com</a>
+              <div>
+                <p class="text-xs text-gray-400 mb-0.5">Email</p>
+                <a href="mailto:tickgear@gmail.com" class="text-white hover:text-green-400 transition text-sm">reachsovann063.com</a>
               </div>
             </li>
-            <li class="flex items-start">
-              <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center animate-pulse flex-shrink-0 mt-1" style="animation-delay:0.2s">
+            <li class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                 </svg>
               </div>
-              <div class="ml-3">
-                <p class="text-sm text-gray-300">Phone</p>
-                <a href="tel:+244941540352" class="text-white hover:text-green-400 transition">+855 10818067</a>
+              <div>
+                <p class="text-xs text-gray-400 mb-0.5">Phone</p>
+                <a href="tel:+85510818067" class="text-white hover:text-green-400 transition text-sm">+855 10818067</a>
               </div>
             </li>
           </ul>
         </div>
 
+        <!-- Sponsored -->
         <div>
-          <h3 class="text-lg font-semibold mb-6 text-white">Sponsored and organized by</h3>
-          <img src="../photo/istad.png" alt="">
+          <h3 class="text-lg font-semibold mb-6">Sponsored and organized by</h3>
+          <img src="../photo/istad.png" alt="iSTAD"/>
         </div>
       </div>
 
-      <div class="mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+      <div class="mt-14 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-gray-500 text-sm">© 2026 TickGear. All rights reserved.</p>
         <div class="flex space-x-6">
-          <a href="#" class="text-gray-400 hover:text-green-400 transition">Privacy Policy</a>
-          <a href="#" class="text-gray-400 hover:text-green-400 transition">Terms of Service</a>
-          <a href="#" class="text-gray-400 hover:text-green-400 transition">Cookies</a>
+          <a href="#" class="text-gray-400 hover:text-green-400 transition text-sm">Privacy Policy</a>
+          <a href="#" class="text-gray-400 hover:text-green-400 transition text-sm">Terms of Service</a>
+          <a href="#" class="text-gray-400 hover:text-green-400 transition text-sm">Cookies</a>
         </div>
       </div>
     </div>
-
-    <div class="orb absolute w-64 h-64 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 filter blur-3xl pointer-events-none"></div>
   </footer>
 </body>
 </html>
