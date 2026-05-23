@@ -86,65 +86,57 @@
   </style>
 </head>
 <body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300 min-h-screen">
-<header class="bg-gray-100 dark:bg-gray-900 shadow-lg sticky top-0 z-50 transition-colors duration-300">
-  <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+ <header class="bg-gray-100 dark:bg-gray-900 shadow-lg sticky top-0 z-50 transition-colors duration-300">
+    <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
 
-    <a href="#" class="text-2xl font-extrabold text-green-500 tracking-tight">TICK<span class="text-slate-900 dark:text-white">GEAR</span></a>
+      <!-- Logo -->
+      <a href="../Home.html" class="text-2xl font-extrabold tracking-tight">
+        <span class="text-slate-900 dark:text-white">TICK</span><span class="text-green-500">GEAR</span>
+      </a>
 
-    <div class="hidden md:flex space-x-8">
-      <a href="../Home.html" class="nav-link font-semibold text-slate-700 dark:text-slate-300 hover:text-green-500 dark:hover:text-green-400 transition-colors">Home</a>
-      <a href="./shop.html" class="nav-link font-semibold text-slate-700 dark:text-slate-300 hover:text-green-500 dark:hover:text-green-400 transition-colors">Shop</a>
-      <a href="#" class="nav-link font-semibold text-slate-700 dark:text-slate-300 hover:text-green-500 dark:hover:text-green-400 transition-colors">Contact Us</a>
-      <a href="./About.html" class="nav-link font-semibold text-slate-700 dark:text-slate-300 hover:text-green-500 dark:hover:text-green-400 transition-colors">About Us</a>
-    </div>
+      <!-- Desktop links -->
+      <div class="hidden md:flex space-x-6">
+        <a href="../Home.html"    class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">Home</a>
+        <a href="./shop.html"     class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">Shop</a>
+        <a href="./ContactUs.html" class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">Contact Us</a>
+        <a href="./About.html"               class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">About Us</a>
+      </div>
 
-    <!-- Right side -->
-    <div class="hidden md:flex items-center space-x-4">
+      <!-- Right: dark toggle + sign up + mobile btn -->
+      <div class="flex items-center space-x-4">
 
-      <!-- ✅ DARK MODE TOGGLE — bare icon like homepage -->
-      <button id="themeToggle" aria-label="Toggle dark mode"
-        class="text-slate-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-400 focus:outline-none transition-colors duration-300">
-        <!-- Sun: shown in dark mode (click to go light) -->
-        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-        </svg>
-        <!-- Moon: shown in light mode (click to go dark) -->
-        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-        </svg>
-      </button>
+        <!-- Bare sun/moon toggle — same as homepage -->
+        <button id="darkModeToggle" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-400 focus:outline-none transition-colors duration-300">
+          <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+          <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+        </button>
 
-      <a href="./Create.html" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-2 rounded-full transition-colors duration-200 text-sm shadow-md shadow-green-500/20">Sign Up</a>
-    </div>
+        <a href="./Create.html" class="hidden md:inline-block bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full transition-colors duration-300 font-semibold text-sm shadow-md shadow-green-500/20">Sign Up</a>
 
-    <!-- Mobile hamburger -->
-    <button id="mobileMenuBtn" class="md:hidden text-slate-700 dark:text-slate-200 hover:text-green-500 transition-colors">
-      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-    </button>
-  </nav>
-
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-    <div class="px-6 py-4 space-y-3">
-      <a href="../Home.html" class="block font-semibold text-slate-700 dark:text-gray-200 hover:text-green-500 transition-colors">Home</a>
-      <a href="./shop.html" class="block font-semibold text-slate-700 dark:text-gray-200 hover:text-green-500 transition-colors">Shop</a>
-      <a href="#" class="block font-semibold text-slate-700 dark:text-gray-200 hover:text-green-500 transition-colors">Contact Us</a>
-      <a href="./About.html" class="block font-semibold text-slate-700 dark:text-gray-200 hover:text-green-500 transition-colors">About Us</a>
-      <div class="flex items-center gap-3 pt-2">
-        <span class="text-sm text-slate-500 dark:text-slate-400">Dark mode</span>
-        <button id="themeToggleMobile" class="toggle-track" aria-label="Toggle dark mode">
-          <span class="toggle-thumb">
-            <span class="thumb-sun"><svg width="14" height="14" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg></span>
-            <span class="thumb-moon"><svg width="13" height="13" fill="#1e293b" viewBox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg></span>
-          </span>
+        <!-- Mobile hamburger -->
+        <button id="mobileMenuButton" class="md:hidden text-gray-700 dark:text-gray-200 hover:text-green-500 focus:outline-none transition-colors duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
         </button>
       </div>
-      <a href="./Create.html" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-2 rounded-full transition-colors text-sm">Sign Up</a>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+      <div class="container mx-auto px-4 py-4 space-y-3">
+        <a href="../Home.html"     class="block font-semibold text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">Home</a>
+        <a href="./shop.html"      class="block font-semibold text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">Shop</a>
+        <a href="./ContactUs.html" class="block font-semibold text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">Contact Us</a>
+        <a href="./About.html"                class="block font-semibold text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">About Us</a>
+        <a href="./Create.html"    class="inline-block bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full transition-colors font-semibold text-sm">Sign Up</a>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
 
 <section class="max-w-6xl mx-auto px-6 py-14 sm:py-20">
@@ -343,45 +335,36 @@
   </div>
 </footer>
 
-<script>
-  const html = document.documentElement;
-  const toggleDesktop = document.getElementById('themeToggle');
-  const toggleMobile = document.getElementById('themeToggleMobile');
-  const sunIcon = document.getElementById('sunIcon');
-  const moonIcon = document.getElementById('moonIcon');
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
+ <script>
+    // ── DARK MODE — same as homepage (localStorage) ──
+    const html = document.documentElement;
+    const toggle = document.getElementById('darkModeToggle');
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon  = document.getElementById('sunIcon');
 
-  function syncIcons() {
-    const isDark = html.classList.contains('dark');
-    sunIcon.classList.toggle('hidden', !isDark);
-    moonIcon.classList.toggle('hidden', isDark);
-  }
-
-  function applyTheme(isDark) {
-    if (isDark) {
-      html.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      html.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+    function syncIcons() {
+      const isDark = html.classList.contains('dark');
+      sunIcon.classList.toggle('hidden', !isDark);
+      moonIcon.classList.toggle('hidden', isDark);
     }
-    syncIcons();
-  }
 
-  // Load saved preference or system preference
-  const saved = localStorage.getItem('theme');
-  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    applyTheme(true);
-  } else {
-    syncIcons();
-  }
+    function applyTheme(isDark) {
+      if (isDark) { html.classList.add('dark'); localStorage.setItem('theme','dark'); }
+      else { html.classList.remove('dark'); localStorage.setItem('theme','light'); }
+      syncIcons();
+    }
 
-  toggleDesktop.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
-  toggleMobile.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      applyTheme(true);
+    } else { syncIcons(); }
 
-  // Mobile menu
-  mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-</script>
+    toggle.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+    // ── MOBILE MENU ──
+    document.getElementById('mobileMenuButton').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+  </script>
 </body>
 </html>

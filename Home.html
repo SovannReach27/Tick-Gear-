@@ -183,7 +183,7 @@
         <a href="./pages/ContactUs.html"
           class="block font-semibold text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">Contact
           Us</a>
-        <a href="#"
+        <a href="./pages/About.html"
           class="block font-semibold text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors">About
           Us</a>
         <a href="./Create.html"
@@ -652,51 +652,35 @@
     </div>
   </footer>
 
-  <script>
-    // ── Dark Mode ──
-    const darkModeToggle = document.getElementById('darkModeToggle');
+ <script>
+    // ── DARK MODE — same as homepage (localStorage) ──
+    const html = document.documentElement;
+    const toggle = document.getElementById('darkModeToggle');
     const moonIcon = document.getElementById('moonIcon');
-    const sunIcon = document.getElementById('sunIcon');
-    let isDarkMode = false;
+    const sunIcon  = document.getElementById('sunIcon');
 
-    function toggleDarkMode() {
-      isDarkMode = !isDarkMode;
-      document.documentElement.classList.toggle('dark', isDarkMode);
-      moonIcon.classList.toggle('hidden', isDarkMode);
-      sunIcon.classList.toggle('hidden', !isDarkMode);
+    function syncIcons() {
+      const isDark = html.classList.contains('dark');
+      sunIcon.classList.toggle('hidden', !isDark);
+      moonIcon.classList.toggle('hidden', isDark);
     }
 
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) toggleDarkMode();
-
-    // ── Mobile Menu ──
-    const mobileMenuButton = document.getElementById('mobileMenuButton');
-    const mobileMenu = document.getElementById('mobileMenu');
-    let isMobileMenuOpen = false;
-
-    function toggleMobileMenu() {
-      isMobileMenuOpen = !isMobileMenuOpen;
-      if (isMobileMenuOpen) {
-        mobileMenu.classList.remove('-translate-y-full', 'opacity-0');
-        mobileMenu.classList.add('translate-y-0', 'opacity-100');
-      } else {
-        mobileMenu.classList.remove('translate-y-0', 'opacity-100');
-        mobileMenu.classList.add('-translate-y-full', 'opacity-0');
-      }
+    function applyTheme(isDark) {
+      if (isDark) { html.classList.add('dark'); localStorage.setItem('theme','dark'); }
+      else { html.classList.remove('dark'); localStorage.setItem('theme','light'); }
+      syncIcons();
     }
 
-    mobileMenuButton.addEventListener('click', toggleMobileMenu);
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      applyTheme(true);
+    } else { syncIcons(); }
 
-    // ── Nav fade-in ──`
-    document.querySelectorAll('.nav-link').forEach((link, index) => {
-      link.classList.add('animate-fade-in');
-      link.style.animationDelay = `${index * 0.1}s`;
-    });
+    toggle.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
 
-    // ── Footer orb cursor follow ──
-    document.addEventListener('mousemove', (e) => {
-      const orb = document.querySelector('.orb');
-      if (orb) { orb.style.left = `${e.clientX}px`; orb.style.top = `${e.clientY}px`; }
+    // ── MOBILE MENU ──
+    document.getElementById('mobileMenuButton').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
     });
   </script>
 
