@@ -22,7 +22,6 @@
     }
     .nav-link:hover::after { width: 100%; }
 
-
     /* ── Product card ── */
     .product-card:hover .product-img { transform: scale(1.05); }
 
@@ -33,16 +32,19 @@
     .anim-f1 { animation: float1 6s ease-in-out infinite; }
     .anim-f2 { animation: float2 7s ease-in-out infinite; }
     .anim-f3 { animation: float3 5s ease-in-out infinite; }
+
+    /* ── Sidebar ── */
+    #sidebar { transition: transform 0.3s ease; }
   </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col transition-colors duration-300">
 
   <!-- Sidebar Overlay -->
-  <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black/30 z-30" onclick="toggleSidebar()"></div>
+  <div id="sidebarOverlay" class="hidden fixed inset-0 bg-black/30 z-30" onclick="closeSidebar()"></div>
 
-  <!-- Slide-in Sidebar (mobile) -->
+  <!-- Slide-in Sidebar (ALL screen sizes) -->
   <aside id="sidebar"
-    class="fixed top-0 left-0 h-full w-56 bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700 z-40 pt-16 transition-transform duration-300 -translate-x-full shadow-lg">
+    class="fixed top-0 left-0 h-full w-56 bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700 z-40 pt-16 -translate-x-full shadow-lg">
     <nav class="flex flex-col mt-4">
       <a href="../Home.html" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-green-500 transition-colors">Home</a>
       <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-green-500 font-bold">Shop</a>
@@ -66,13 +68,12 @@
           <span id="bar2" class="block w-4 h-[1.5px] bg-gray-700 dark:bg-gray-200 rounded transition-all duration-300"></span>
           <span id="bar3" class="block w-4 h-[1.5px] bg-gray-700 dark:bg-gray-200 rounded transition-all duration-300"></span>
         </button>
-        <!-- TickGear logo text matching homepage style -->
         <a href="#" class="text-2xl font-extrabold tracking-tight">
           <span class="text-slate-900 dark:text-white">TICK</span><span class="text-green-500">GEAR</span>
         </a>
       </div>
 
-      <!-- Center: nav links (desktop) -->
+      <!-- Center: nav links (desktop only) -->
       <div class="hidden md:flex space-x-8">
         <a href="../Home.html" class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">Home</a>
         <a href="#" class="nav-link font-bold text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-300">Shop</a>
@@ -82,14 +83,11 @@
 
       <!-- Right: dark mode + cart + sign up -->
       <div class="flex items-center space-x-4">
-
-        <!-- ✅ DARK MODE — bare sun/moon icon (same as homepage) -->
+        <!-- Dark Mode Toggle -->
         <button id="darkModeToggle" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-400 focus:outline-none transition-colors duration-300">
-          <!-- Moon: shown in light mode -->
           <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
           </svg>
-          <!-- Sun: shown in dark mode -->
           <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
           </svg>
@@ -103,33 +101,22 @@
           <span id="cartCount" class="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
         </button>
 
+        <!-- Sign Up (desktop only) -->
         <a href="./Create.html" class="hidden md:inline-block bg-green-500 text-white px-5 py-2 rounded-full hover:bg-green-600 transition-colors duration-300 font-semibold text-sm shadow-md shadow-green-500/20">Sign Up</a>
 
-        <!-- Mobile hamburger menu toggle -->
-        <button id="mobileMenuButton" class="md:hidden text-gray-700 dark:text-gray-200 hover:text-green-500 focus:outline-none transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
+        <!-- ❌ REMOVED: the duplicate mobile hamburger button that was here -->
+        <!-- The sidebar toggle (☰ on left) now handles ALL screen sizes -->
       </div>
     </nav>
 
-    <!-- Mobile Dropdown -->
-    <div id="mobileMenu" class="mobile-menu md:hidden bg-white dark:bg-gray-800 shadow-lg w-full transform -translate-y-full opacity-0">
-      <div class="container mx-auto px-4 py-4 space-y-4">
-        <a href="../Home.html" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors font-medium">Home</a>
-        <a href="#" class="block text-green-500 font-bold">Shop</a>
-        <a href="./ContactUs.html" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors font-medium">Contact Us</a>
-        <a href="./About.html" class="block text-gray-700 dark:text-gray-200 hover:text-green-500 transition-colors font-medium">About Us</a>
-        <a href="./Login.html" class="inline-block bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors font-semibold text-sm">Sign Up</a>
-      </div>
-    </div>
+    <!-- ❌ REMOVED: the mobile dropdown menu (#mobileMenu) -->
+    <!-- Navigation is now handled exclusively by the sidebar on all sizes -->
   </header>
 
   <!-- ══════════ PAGE BODY ══════════ -->
   <div class="flex pt-20 container mx-auto px-4 py-8 gap-8">
 
-    <!-- LEFT: Category Sidebar -->
+    <!-- LEFT: Category Sidebar (desktop) -->
     <aside class="hidden md:block w-56 flex-shrink-0">
       <h2 class="text-2xl font-extrabold text-gray-800 dark:text-white mb-6">ALL PRODUCTS</h2>
       <ul class="space-y-1" id="categoryList">
@@ -159,7 +146,7 @@
       </div>
 
       <!-- Mobile Category Scroll -->
-      <div class="flex md:hidden gap-2 overflow-x-auto pb-3 mb-6">
+      <div class="flex md:hidden gap-2 overflow-x-auto pb-3 mb-6 scrollbar-hide">
         <button onclick="selectCategory(this,'All')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-green-500 text-white text-xs font-medium">All</button>
         <button onclick="selectCategory(this,'Keyboard')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Keyboard</button>
         <button onclick="selectCategory(this,'Mice')" class="category-btn flex-shrink-0 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium">Mice</button>
@@ -174,7 +161,6 @@
       </div>
     </div>
   </div>
-
 
   <script>
     // ════════ PRODUCTS DATA ════════
@@ -226,7 +212,7 @@
       grid.innerHTML = filtered.map(p => `
         <div class="product-card bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden group cursor-pointer transition-shadow duration-300 hover:shadow-md">
           <div class="overflow-hidden bg-gray-50 dark:bg-gray-700 aspect-square flex items-center justify-center p-4">
-            <img src="${p.img}" alt="${p.name}" class="product-img w-full h-full object-contain transition-transform duration-300"/>
+            <img src="${p.img}" alt="${p.name}" class="product-img w-full h-full object-contain transition-transform duration-300" loading="lazy"/>
           </div>
           <div class="p-4">
             <h3 class="text-sm font-medium text-gray-800 dark:text-white leading-snug mb-1">${p.name}</h3>
@@ -241,14 +227,15 @@
       currentCategory = cat;
       document.querySelectorAll('.category-btn').forEach(b => {
         b.classList.remove('bg-green-500','text-white');
-        b.classList.add('text-gray-700','dark:text-gray-300');
+        b.classList.add('text-gray-700','dark:text-gray-300','bg-gray-100','dark:bg-gray-700');
       });
       btn.classList.add('bg-green-500','text-white');
-      btn.classList.remove('text-gray-700','dark:text-gray-300');
+      btn.classList.remove('text-gray-700','dark:text-gray-300','bg-gray-100','dark:bg-gray-700');
       renderProducts();
     }
 
     function filterProducts() { renderProducts(); }
+
     function addToCart() {
       cartCount++;
       document.getElementById('cartCount').textContent = cartCount;
@@ -256,7 +243,7 @@
 
     renderProducts();
 
-    // ════════ DARK MODE — same logic as homepage (localStorage) ════════
+    // ════════ DARK MODE ════════
     const html = document.documentElement;
     const darkModeToggle = document.getElementById('darkModeToggle');
     const moonIcon = document.getElementById('moonIcon');
@@ -274,7 +261,6 @@
       syncIcons();
     }
 
-    // Load saved or system preference
     const saved = localStorage.getItem('theme');
     if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       applyTheme(true);
@@ -282,37 +268,35 @@
 
     darkModeToggle.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
 
-    // ════════ SIDEBAR ════════
+    // ════════ SIDEBAR — single unified toggle for ALL screen sizes ════════
     let sidebarOpen = false;
-    function toggleSidebar() {
-      sidebarOpen = !sidebarOpen;
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      const bar1 = document.getElementById('bar1');
-      const bar2 = document.getElementById('bar2');
-      const bar3 = document.getElementById('bar3');
-      sidebar.classList.toggle('-translate-x-full', !sidebarOpen);
-      overlay.classList.toggle('hidden', !sidebarOpen);
-      bar1.style.transform = sidebarOpen ? 'translateY(6.5px) rotate(45deg)' : '';
-      bar2.style.opacity = sidebarOpen ? '0' : '1';
-      bar3.style.transform = sidebarOpen ? 'translateY(-6.5px) rotate(-45deg)' : '';
+
+    function openSidebar() {
+      sidebarOpen = true;
+      document.getElementById('sidebar').classList.remove('-translate-x-full');
+      document.getElementById('sidebarOverlay').classList.remove('hidden');
+      document.getElementById('bar1').style.transform = 'translateY(6.5px) rotate(45deg)';
+      document.getElementById('bar2').style.opacity = '0';
+      document.getElementById('bar3').style.transform = 'translateY(-6.5px) rotate(-45deg)';
     }
 
-    // ════════ MOBILE MENU ════════
-    const mobileMenuButton = document.getElementById('mobileMenuButton');
-    const mobileMenu = document.getElementById('mobileMenu');
-    let isMobileMenuOpen = false;
-    mobileMenuButton.addEventListener('click', () => {
-      isMobileMenuOpen = !isMobileMenuOpen;
-      if (isMobileMenuOpen) {
-        mobileMenu.classList.remove('-translate-y-full','opacity-0');
-        mobileMenu.classList.add('translate-y-0','opacity-100');
-      } else {
-        mobileMenu.classList.remove('translate-y-0','opacity-100');
-        mobileMenu.classList.add('-translate-y-full','opacity-0');
-      }
-    });
+    function closeSidebar() {
+      sidebarOpen = false;
+      document.getElementById('sidebar').classList.add('-translate-x-full');
+      document.getElementById('sidebarOverlay').classList.add('hidden');
+      document.getElementById('bar1').style.transform = '';
+      document.getElementById('bar2').style.opacity = '1';
+      document.getElementById('bar3').style.transform = '';
+    }
+
+    function toggleSidebar() {
+      sidebarOpen ? closeSidebar() : openSidebar();
+    }
+
+    // Close sidebar on Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && sidebarOpen) closeSidebar(); });
   </script>
+
   <footer class="relative bg-gray-900 dark:bg-gray-950 text-white overflow-hidden transition-colors duration-300 mt-auto">
     <div class="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
       <div class="absolute top-20 left-10 w-32 h-32 bg-green-500 rounded-full blur-3xl anim-f1"></div>
@@ -323,7 +307,6 @@
     <div class="relative max-w-7xl mx-auto px-6 py-16 sm:py-20 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
-        <!-- ✅ TICKGEAR logo in footer -->
         <div>
           <p class="text-2xl font-extrabold tracking-tight mb-4">
             TICK<span class="text-green-400">GEAR</span>
@@ -342,7 +325,6 @@
           </div>
         </div>
 
-        <!-- Quick Links -->
         <div>
           <h3 class="text-lg font-semibold mb-6">Quick Links</h3>
           <ul class="space-y-3">
@@ -353,7 +335,6 @@
           </ul>
         </div>
 
-        <!-- Get in Touch -->
         <div>
           <h3 class="text-lg font-semibold mb-6">Get in Touch</h3>
           <ul class="space-y-4">
@@ -382,7 +363,6 @@
           </ul>
         </div>
 
-        <!-- Sponsored -->
         <div>
           <h3 class="text-lg font-semibold mb-6">Sponsored and organized by</h3>
           <img src="../photo/istad.png" alt="iSTAD"/>
